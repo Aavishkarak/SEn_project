@@ -144,7 +144,79 @@ def scan(di):
 			elif t == "double":
 				print("scanf(\"%lf\",&" + w + ");")
 				code_file.write("scanf(\"%lf\",&" + w + ");\n")
+				
+				
 
+				
+def prin(di):
+
+	str="printf (\""
+	#print(str)
+	vars = []
+
+	break_pts = []
+	for i in range(len(c)):
+		if (c[i] == "plain" and c[i+1] == "text") or (c[i] == "special" and c[i+1] == "character") or c[i] == "variable":
+			break_pts.append(i)
+
+	#print(break_pts)
+	for i in range(len(break_pts)):
+		#print(i)
+		#print(c[break_pts[i]])
+		if c[break_pts[i]] == "plain":
+		 	p = break_pts[i]+2
+		 	#print(c[p])
+		 	if i < len(break_pts)-1:
+		 		#print(i)
+		 		#str = str + "\""
+		 		while p < break_pts[i+1]:
+		 			str = str + c[p] + " "
+		 			p = p+1
+		 		#str = str + "\""
+		 	else:
+		 		#str = str + "\""
+		 		while p < len(c):
+		 			str = str + c[p] + " "
+		 			p = p+1
+		 		#str = str + "\""
+		
+		elif c[break_pts[i]] == "variable":
+			
+			v = c[break_pts[i]+1]
+
+			for (w,t) in nam_val:
+				if v == w:
+					vars.append(v)
+					if t == "int":
+						str = str + "%d "
+					elif t == "float":
+						str = str + "%f "
+					elif t == "char":
+						str = str + "%c "
+					elif t == "long":
+						str = str + "%ld "
+					elif t == "double":
+						str = str + "%lf "
+
+		else:
+			p = break_pts[i] + 2
+			if c[p] == "tab":
+				str = str + "\\t "
+			elif c[p] == "space":
+				str = str + " "
+			else:
+				str = str + "\\n"
+
+	str = str + "\""
+
+	for v in vars:
+		str = str + "," + v
+
+	str = str + ");"
+
+
+	print(str)
+	code_file.write(str+"\n")
 		
 
 for a in lines:
@@ -192,6 +264,19 @@ for a in lines:
 			if iniflag == 1:
 				break
 
+	#Printing output to screen
+	
+	if(decflag == 0 and iniflag == 0):
+		for i in dict["NN"] or dict["VB"]:
+			for p in printer:
+				if p in i:
+					pflag = 1
+					prin(dict)
+					break
+			if pflag == 1:
+				break
+
+				
 	#Scanning input from screen
 
 	
