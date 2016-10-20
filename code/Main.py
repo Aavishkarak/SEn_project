@@ -19,8 +19,14 @@ code_file.write("main(){\n")
 
 declarations=["declar","creat","tak","mak","consider","new"]
 datatypes=["int","char","long","float","double"]
+initialize=["giv","initializ","assign"]
 
 var_names=[]
+nam_val=[]
+val_exists = []
+
+def quotes(w):
+	return('\''+w+'\'')
 
 def declare(di):
 
@@ -64,6 +70,62 @@ def declare(di):
 		nam_val.append((w,dt))
 		print(dt+ " " + w+ ";")
 		code_file.write(dt+ " " + w+ ";\n")
+		
+		
+		
+def init(di):
+	charflag = 0
+	x= '1'
+	y= '1'
+	for i in c:
+		if (i,'char') in nam_val:
+			if x=='1':
+				charflag = 1
+				x = i
+			else:
+				y = i
+				break
+
+		elif i in var_names:
+			if x=='1':
+				x = i
+			else:
+				y=i
+				break
+	for index in range(len(c)):
+		if c[index] == 'ascii':
+			char_index = index+2 
+
+	if charflag == 1:
+		if 'ascii' in a:
+		
+			print(x + "=" +quotes((c[char_index]))+";" )
+			code_file.write(x + "=" +quotes((c[char_index]))+";\n" )
+
+		else:
+			if 'to' in c and di["VB"][0] == "assign":
+				print(y +" = " + x + ";")
+				code_file.write(y +" = " + x + ";\n")
+			else:
+				print(x +" = " + y + ";")
+				code_file.write(x +" = " + y + ";\n")
+
+	elif x == '1' and len(di["CD"]) == 0:
+		print ("please first declare this variable")
+
+	elif y == '1':
+		
+		print(x +" = " + di["CD"][0] + ";")
+		code_file.write(x +" = " + di["CD"][0] + ";\n")
+	else:
+		if 'to' in c and di["VB"][0] == "assign":
+			print(y +" = " + x + ";")
+			code_file.write(y +" = " + x + ";\n")
+		else:
+			print(x +" = " + y + ";")
+			code_file.write(x +" = " + y + ";\n")		
+
+		
 
 for a in lines:
 	c = word_tokenize(a.lower())
@@ -95,3 +157,20 @@ for a in lines:
 		if decflag == 1:
 			break
 
+	#checking if the statement is an initialization
+		
+	if(decflag == 0):
+		for i in dict["VB"]:
+			for ini in initialize:
+				if ini in i:
+					iniflag = 1
+					init(dict)
+					break
+			if iniflag == 1:
+				break
+
+
+				
+code_file.write("\n}")
+			
+	
