@@ -20,6 +20,9 @@ code_file.write("main(){\n")
 declarations=["declar","creat","tak","mak","consider","new"]
 datatypes=["int","char","long","float","double"]
 initialize=["giv","initializ","assign"]
+scanner=["accept","input","scan","take from user","take from screen","intake"]
+printer=["print", "output", "display"]
+arithmetic = ["sum","add","difference","subtract","multiply","product","divide","mod","plus","minus","by","times"]
 
 var_names=[]
 nam_val=[]
@@ -27,6 +30,24 @@ val_exists = []
 
 def quotes(w):
 	return('\''+w+'\'')
+
+def addoperator(d):
+	return d[0]+"+"+d[1]
+
+def suboperator(d):
+	return d[0]+"-"+d[1]
+
+def muloperator(d):
+	return d[0]+"*"+d[1]
+
+def divoperator(d):
+	return d[0]+"/"+d[1]
+
+def modoperator(d):
+	return d[0]+"%"+d[1]	
+
+
+
 
 def declare(di):
 
@@ -217,6 +238,67 @@ def prin(di):
 
 	print(str)
 	code_file.write(str+"\n")
+	
+	
+	
+def arithmo(di):
+	new_var = []
+	inflag = 0
+	for index in range(len(c)):
+		if c[index] == 'in':
+			inflag = 1
+			new_index = index+1 
+			break
+
+	if inflag == 1:	
+		for i in c:
+			if i in var_names:
+				new_var.append(i)
+		new_var.remove(c[new_index])
+		#print(new_var)
+
+		if "add" in a or "sum" in a or "plus" in a:
+			print(c[new_index]+ "="+ addoperator(new_var)+";")
+			code_file.write(c[new_index]+ "="+ addoperator(new_var)+";\n")
+		elif "subtract" in a or "difference" in a or "minus" in a:
+			print(c[new_index]+ "="+ suboperator(new_var)+";")
+			code_file.write(c[new_index]+ "="+ suboperator(new_var)+";\n")
+		elif "multiply" in a or "product" in a or "times" in a:
+			print(c[new_index]+ "="+ muloperator(new_var)+";")	
+			code_file.write(c[new_index]+ "="+ muloperator(new_var)+";\n")	
+		elif "divide" in a or "by" in a or "quotient" in a :
+			print(c[new_index]+ "="+ divoperator(new_var)+";")	
+			code_file.write(c[new_index]+ "="+ divoperator(new_var)+";\n")	
+		elif "mod" in a or "modulus" in a or "remainder" in a:
+			print(c[new_index]+ "="+ modoperator(new_var)+";")	
+			code_file.write(c[new_index]+ "="+ modoperator(new_var)+";\n")
+	elif inflag == 0:
+		#print("here")
+		for index in range(len(c)):
+			if c[index] == 'equals' or c[index] == 'equal' :
+				#print("her")
+				new_index = index-1 
+
+		new_var = var_names.copy()	
+		new_var.remove(c[new_index])
+
+		if "add" in a or "sum" in a or "plus" in a:
+			print(c[new_index]+ "="+ addoperator(new_var)+";")
+			code_file.write(c[new_index]+ "="+ addoperator(new_var)+";\n")
+		elif "subtract" in a or "difference" in a or "minus" in a:
+			print(c[new_index]+ "="+ suboperator(new_var)+";")
+			code_file.write(c[new_index]+ "="+ suboperator(new_var)+";\n")
+		elif "multiply" in a or "product" in a or "times" in a:
+			print(c[new_index]+ "="+ muloperator(new_var)+";")	
+			code_file.write(c[new_index]+ "="+ muloperator(new_var)+";\n")	
+		elif "divide" in a or "by" in a or "quotient" in a :
+			print(c[new_index]+ "="+ divoperator(new_var)+";")	
+			code_file.write(c[new_index]+ "="+ divoperator(new_var)+";\n")	
+		elif "mod" in a or "modulus" in a or "remainder" in a:
+			print(c[new_index]+ "="+ modoperator(new_var)+";")	
+			code_file.write(c[new_index]+ "="+ modoperator(new_var)+";\n")
+
+
 		
 
 for a in lines:
@@ -294,6 +376,20 @@ for a in lines:
 				if("take from user" in a or "take from screen" in a or "take in" in a):
 					scan(dict)
 					scanflag = 1
+
+					
+	#arithmetic operations
+	if(decflag==0 and iniflag==0 and pflag==0 and scanflag == 0):
+		for i in dict["VB"] + dict["NN"] + dict["CC"]:
+			
+			for a in arithmetic:
+				#print(a,i)
+				if a in i:
+					aflag = 1
+					arithmo(dict)
+					break
+				if aflag==1:
+					break
 
 				
 code_file.write("\n}")
