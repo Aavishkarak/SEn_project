@@ -125,6 +125,26 @@ def init(di):
 			print(x +" = " + y + ";")
 			code_file.write(x +" = " + y + ";\n")		
 
+			
+def scan(di):
+	for (w,t) in nam_val:
+		if w in c:
+			if t == "int":
+				print("scanf(\"%d\",&" + w + ");")
+				code_file.write("scanf(\"%d\",&" + w + ");\n")
+			elif t == "float":
+				print("scanf(\"%f\",&" + w + ");")
+				code_file.write("scanf(\"%f\",&" + w + ");\n")
+			elif t == "char":
+				print("scanf(\"%c\",&" + w + ");")
+				code_file.write("scanf(\"%c\",&" + w + ");\n")
+			elif t == "long":
+				print("scanf(\"%ld\",&" + w + ");")
+				code_file.write("scanf(\"%ld\",&" + w + ");\n")
+			elif t == "double":
+				print("scanf(\"%lf\",&" + w + ");")
+				code_file.write("scanf(\"%lf\",&" + w + ");\n")
+
 		
 
 for a in lines:
@@ -134,6 +154,9 @@ for a in lines:
 
 	decflag=0
 	iniflag=0
+	scanflag=0
+	pflag=0
+	aflag=0
 	
 	dict = {"VB": [], "NN": [], "JJ": [], "DT": [], "CC": [], "PR": [], "CD": []}
 
@@ -169,6 +192,23 @@ for a in lines:
 			if iniflag == 1:
 				break
 
+	#Scanning input from screen
+
+	
+	if(decflag == 0 and iniflag == 0 and pflag == 0):
+		for i in dict["VB"] or dict["NN"]:
+			for s in scanner:
+				if s in i:
+					#dict["VB"].remove(i)
+					scanflag = 1
+					scan(dict)
+					break
+			if scanflag == 1:
+				break
+			if scanflag == 0:
+				if("take from user" in a or "take from screen" in a or "take in" in a):
+					scan(dict)
+					scanflag = 1
 
 				
 code_file.write("\n}")
