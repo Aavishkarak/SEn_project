@@ -23,6 +23,7 @@ initialize=["giv","initializ","assign"]
 scanner=["accept","input","scan","take from user","take from screen","intake"]
 printer=["print", "output", "display"]
 arithmetic = ["sum","add","difference","subtract","multiply","product","divide","mod","plus","minus","by","times"]
+conditional = ["if","else","otherwise","else if"]
 
 var_names=[]
 nam_val=[]
@@ -299,7 +300,28 @@ def arithmo(di):
 			code_file.write(c[new_index]+ "="+ modoperator(new_var)+";\n")
 
 
-		
+def condi(di):
+	#print("condi")
+	for index in range(len(c)):
+		if c[index] == 'than':
+			first_var = index-2
+			second_var = index+2 
+			break
+
+	#print(c)
+
+	if "greater" in c and "if" in c:
+		print("if("+c[first_var] + " " + ">" + " " +c[second_var]+"){\n")
+	elif "less" in c and "if" in c:
+		print("if("+first_var + " " + "<" + " " +second_var+"){\n")
+	elif ("else" in a or "otherwise" in c) :
+		print("else{\n")
+	elif ("else" in a or "otherwise" in c):
+		print("else{\n")
+
+
+	if "end" in c and "if" in c:
+		print("}\n")	
 
 for a in lines:
 	c = word_tokenize(a.lower())
@@ -382,7 +404,7 @@ for a in lines:
 	if(decflag==0 and iniflag==0 and pflag==0 and scanflag == 0):
 		for i in dict["VB"] + dict["NN"] + dict["CC"]:
 			
-			for a in arithmetic:
+			for a in arithmetic:	
 				#print(a,i)
 				if a in i:
 					aflag = 1
@@ -390,6 +412,19 @@ for a in lines:
 					break
 				if aflag==1:
 					break
+					
+	if(flag == 0):
+		
+		for i in dict["IN"] + dict["JJ"] + dict["CC"] + dict["RB"]:
+
+			for a in conditional:
+				if a in i:
+					flag = 1
+					
+					condi(dict)
+					break
+				if flag == 1:
+					break	
 
 				
 code_file.write("\n}")
