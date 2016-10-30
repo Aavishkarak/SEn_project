@@ -305,23 +305,41 @@ def condi(di):
 	for index in range(len(c)):
 		if c[index] == 'than':
 			first_var = index-2
-			second_var = index+2 
+			if c[index+1] == 'variable':
+				second_var = index+2 
+			else:
+				second_var = index + 1
 			break
+		elif 'equal' in c[index]:
+			first_var = index - 1
+			if c[index+2] == 'variable':
+				second_var = index+3
+			elif c[index+1] == 'variable':
+				second_var = index+2
+			elif c[index+1] == 'to':
+				second_var = index+2
+			else:
+				second_var = index+1
+
+		
 
 	#print(c)
-
+	print(a)	
 	if "greater" in c and "if" in c:
 		print("if("+c[first_var] + " " + ">" + " " +c[second_var]+"){\n")
 	elif "less" in c and "if" in c:
 		print("if("+first_var + " " + "<" + " " +second_var+"){\n")
-	elif ("else" in a or "otherwise" in c) :
+	elif ("else" in c or "otherwise" in c) :
 		print("else{\n")
-	elif ("else" in a or "otherwise" in c):
+	elif ("else" in c or "otherwise" in c):
 		print("else{\n")
-
+	elif "greater than equal to" in a or "greater than or equal to" in a:
+		print("hi")
+	elif ("equals" in a or "equal" in a) and "if" in a:
+		print("if("+c[first_var] + " " + "==" + " " +c[second_var]+"){\n")
 
 	if "end" in c and "if" in c:
-		print("}\n")	
+		print("}\n")
 
 for a in lines:
 	c = word_tokenize(a.lower())
