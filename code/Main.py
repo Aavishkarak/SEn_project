@@ -29,6 +29,13 @@ var_names=[]
 nam_val=[]
 val_exists = []
 
+def index_find(li,w):
+	ind = 0
+	for index in range(len(c)):
+		if li[index] == w:
+			ind = index
+	return ind
+
 def quotes(w):
 	return('\''+w+'\'')
 
@@ -79,7 +86,15 @@ def declare(di):
 	
 	#print(di)
 	#Obtaining the names
-	if len(di["NN"]) == 1:
+	if 'pointer' in a :
+		index = index_find(c,'pointer')
+		w = c[index+1] 
+		var_names.append(w)
+
+		nam_val.append((w,dt))
+		print(dt+ " " +"*" + w + ";\n")
+	
+	elif len(di["NN"]) == 1:
 		w = di["NN"][0]
 		var_names.append(w)
 	
