@@ -133,7 +133,18 @@ def init(di):
 		if c[index] == 'ascii':
 			char_index = index+2 
 
-	if charflag == 1:
+	if 'pointer' in a:
+
+		ptr_index = index_find(c,'pointer')+1
+		if 'address of' in a:
+			add_index = index_find(c,'of')+1
+		elif 'address' in a:
+			add_index  = index_find(c,'address')+1
+		
+
+		print(c[ptr_index]+ " " "=" + " " + "&" + c[add_index] + ";\n")
+
+	elif charflag == 1:
 		if 'ascii' in a:
 		
 			print(x + "=" +quotes((c[char_index]))+";" )
