@@ -39,7 +39,11 @@ scanner=["accept","input","scan","take from user","take from screen","intake","r
 printer=["print", "output", "display"]
 arithmetic = ["sum","add","difference","subtract","multiply","product","divide","mod","plus","minus","by","times"]
 loop = ["loop", "iterat"]
-conditional = ["if","else","otherwise","else if","while"]
+condition = ["if"]
+otherwise = ["else", "otherwise"]
+relations = ["greater", "less", "equal"]
+logical = ["and", "or"]
+
 var_names=[]
 
 nam_val=[]
