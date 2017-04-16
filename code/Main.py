@@ -272,7 +272,7 @@ class Example(QWidget):
 			#if statement
 			if flag == 0:
 					if "if" in c:
-						cond(c)
+						self.cond(c)
 						flag = 1
 
 			#else statement
@@ -283,6 +283,18 @@ class Example(QWidget):
 						code_file.write("else")
 						flag = 1
 							
+							
+							
+			
+			if(flag == 0):
+				if "continue" in a:
+					text3.append("continue;")
+						code_file.write("continue;\n")
+						flag = 1
+
+
+
+
 
             #Looping
             if(flag == 0):
@@ -309,20 +321,7 @@ class Example(QWidget):
                         #if aflag==1:
                             break
 				
-				
-		
-	
-
-            if(flag == 0):
-
-                for i in dict["IN"] + dict["JJ"] + dict["CC"] + dict["RB"]:
-                    for art in conditional:
-                        if art in i:
-                            flag = 1
-                            self.cond(dict)
-                            break
-                        if flag == 1:
-                            break
+			
         except Exception:
             print("exception")
 
@@ -571,11 +570,6 @@ Examples:
                         if flag == 1:
                             break   
          
-
-
-
-
-
 
             #arithmetic operations
             #if(decflag==0 and iniflag==0 and pflag==0 and scanflag == 0):
