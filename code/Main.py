@@ -268,6 +268,21 @@ class Example(QWidget):
                             self.scan(dict)
                             flag = 1
                             #scanflag = 1
+							
+			#if statement
+			if flag == 0:
+					if "if" in c:
+						cond(c)
+						flag = 1
+
+			#else statement
+			if flag == 0:
+				for i in otherwise:
+					if i in c:
+						text3.append("else")
+						code_file.write("else")
+						flag = 1
+							
 
             #Looping
             if(flag == 0):
@@ -293,6 +308,10 @@ class Example(QWidget):
                         if flag == 1:
                         #if aflag==1:
                             break
+				
+				
+		
+	
 
             if(flag == 0):
 
